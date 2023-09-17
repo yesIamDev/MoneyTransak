@@ -16,7 +16,7 @@ export default function Sidebar() {
             key={item.key}
             className={classNames(
               pathname === item.path ? "bg-gray-100" : "bg-white",
-              linkClasses
+              linkClasses, "text-blue-600"
             )}
           >
             <span className="text-xl">{item.icon}</span>
