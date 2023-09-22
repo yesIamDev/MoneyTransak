@@ -14,12 +14,6 @@ export default function Modal({ isVisible, onClose, children }) {
       onClick={handleClose}
     >
       <div className="w-[400px] flex flex-col">
-        <button
-          className="text-white text-xl place-self-end"
-          onClick={() => onClose()}
-        >
-          X
-        </button>
         <div className="bg-white p-2 rounded">{children}</div>
       </div>
     </div>

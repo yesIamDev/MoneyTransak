@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function AddClientsForm() {
-  const history = useNavigate();
-
   const [name, setName] = useState("");
   const [postName, setPostName] = useState("");
   const [nationalite, setNationalite] = useState("");
@@ -14,6 +11,7 @@ export default function AddClientsForm() {
     try {
       let res = await fetch("http://localhost:3333/api/clients/create", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name,
           postname: postName,
@@ -22,12 +20,12 @@ export default function AddClientsForm() {
         }),
       });
       let resJson = await res.json();
-      if (res.status === 200) {
+      if (res.ok) {
         setName("");
         setPostName("");
         setNationalite("");
         setAge("");
-        console.log("client creer avec succes :) !");
+        console.log(res);
       } else {
         console.log("Erreur lors de la creation du client");
       }
