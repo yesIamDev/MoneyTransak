@@ -1,10 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { Table, Input } from "antd";
-import { IoMdAdd } from "react-icons/io";
+import { Table, Input, Popover } from "antd";
+
 import Modal from "../Modal";
 import AddClientsForm from "./AddClients-Form";
+
 import { AiOutlinePlus } from "react-icons/ai";
 import { VscEdit } from "react-icons/vsc";
+import { IoMdAdd } from "react-icons/io";
 import { RiChatCheckFill, RiDeleteBinLine } from "react-icons/ri";
 
 export default function Clients() {
@@ -21,7 +23,26 @@ export default function Clients() {
       setClients(data);
     };
     fetchClients();
-  }, [Clients]);
+  }, []);
+
+  const handleDeleteClient = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:3333/api/clients/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        const updateClients = Clients.filter((client) => client._id !== id);
+        setClients(updateClients);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditClient = (e) => {
+    e.preventDefault();
+    console.log("Mise a jour effectuee avec succes!");
+  };
 
   const columns = [
     {
@@ -62,12 +83,27 @@ export default function Clients() {
       render: (record) => {
         return (
           <div className="flex flex-row gap-x-5 items-center mx-3">
-            <button>
-              <VscEdit />
-            </button>
-            <button>
-              <RiDeleteBinLine style={{ color: "red" }} />
-            </button>
+            <Popover content={<h6>Modifier</h6>}>
+              <button
+                className="hover:scale-110"
+                onClick={(e) => {
+                  handleEditClient(e);
+                }}
+              >
+                <VscEdit />
+              </button>
+            </Popover>
+            <Popover content={<h6>Supprimer</h6>}>
+              <button
+                className="hover:scale-110"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDeleteClient(record._id);
+                }}
+              >
+                <RiDeleteBinLine style={{ color: "red" }} />
+              </button>
+            </Popover>
           </div>
         );
       },
@@ -106,7 +142,7 @@ export default function Clients() {
         </div>
       </div>
       <div>
-        <Table columns={columns} dataSource={Clients} size="small" />;
+        <Table columns={columns} dataSource={Clients} size="small" />
       </div>
       <Modal
         isVisible={showModal}

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AddClientsForm() {
+  const history = useNavigate();
   const [name, setName] = useState("");
   const [postName, setPostName] = useState("");
   const [nationalite, setNationalite] = useState("");
@@ -112,7 +114,10 @@ export default function AddClientsForm() {
               <button
                 className="w-full py-2 px-4 bg-gray-900 hover:border rounded-md text-white text-sm font-Rubik"
                 type="submit"
-                onClick={handleSubmit}
+                onClick={(e) => {
+                  handleSubmit(e);
+                  history("/");
+                }}
               >
                 Ajouter
               </button>

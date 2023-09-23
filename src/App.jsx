@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import Clients from "./components/clients/Clients";
 import Depots from "./components/depots/Depots";
 import Retraits from "./components/retraits/Retraits";
+import Comptes from "./components/comptes/comptes";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/clients" element={<Clients />} />
           <Route path="/depots" element={<Depots />} />
           <Route path="/retraits" element={<Retraits />} />
+          <Route path="/comptes" element={<Comptes />} />
         </Route>
       </Routes>
     </Router>
