@@ -1,6 +1,7 @@
 import React from "react";
+import AddClientsForm from "./clients/AddClients-Form";
 
-export default function Modal({ isVisible, onClose, children }) {
+export default function AddClientModal({ isVisible, onClose }) {
   if (!isVisible) return null;
 
   const handleClose = (e) => {
@@ -14,7 +15,9 @@ export default function Modal({ isVisible, onClose, children }) {
       onClick={handleClose}
     >
       <div className="w-[400px] flex flex-col">
-        <div className="bg-white p-2 rounded">{children}</div>
+        <div className="bg-white p-2 rounded">
+          <AddClientsForm />
+        </div>
       </div>
     </div>
   );

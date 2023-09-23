@@ -1,17 +1,19 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Table, Input, Popover } from "antd";
 
-import Modal from "../Modal";
+import AddClientModal from "../Add-Client-Modal";
+import ClientDetailsModal from "../Client-Details-Modal";
 import AddClientsForm from "./AddClients-Form";
 
 import { AiOutlinePlus } from "react-icons/ai";
 import { VscEdit } from "react-icons/vsc";
-import { IoMdAdd } from "react-icons/io";
+import { IoMdAdd, IoIosMore } from "react-icons/io";
 import { RiChatCheckFill, RiDeleteBinLine } from "react-icons/ri";
 
 export default function Clients() {
   const [Clients, setClients] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showAddClientModal, setShowAddClientModal] = useState(false);
+  const [showClientDetailsModal, setShowClientDetailsModal] = useState(false);
   const [seachedText, setSeachedText] = useState("");
 
   useEffect(() => {
@@ -104,6 +106,21 @@ export default function Clients() {
                 <RiDeleteBinLine style={{ color: "red" }} />
               </button>
             </Popover>
+            <Popover content={<h6>Details</h6>}>
+              <Fragment>
+                <button
+                  data-modal-target="staticModal"
+                  data-modal-toggle="staticModal "
+                  className="hover:scale-110"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowClientDetailsModal(true);
+                  }}
+                >
+                  <IoIosMore />
+                </button>
+              </Fragment>
+            </Popover>
           </div>
         );
       },
@@ -132,7 +149,7 @@ export default function Clients() {
                 data-modal-toggle="staticModal "
                 className="border p-2 mx-2 text-white bg-blue-600 rounded-full hover:brightness-125"
                 onClick={() => {
-                  setShowModal(true);
+                  setShowAddClientModal(true);
                 }}
               >
                 <AiOutlinePlus />
@@ -144,14 +161,18 @@ export default function Clients() {
       <div>
         <Table columns={columns} dataSource={Clients} size="small" />
       </div>
-      <Modal
-        isVisible={showModal}
+      <AddClientModal
+        isVisible={showAddClientModal}
         onClose={() => {
-          setShowModal(false);
+          setShowAddClientModal(false);
         }}
-      >
-        <AddClientsForm />
-      </Modal>
+      ></AddClientModal>
+      <ClientDetailsModal
+        isVisible={showClientDetailsModal}
+        onClose={() => {
+          setShowClientDetailsModal(false);
+        }}
+      ></ClientDetailsModal>
     </div>
   );
 }
