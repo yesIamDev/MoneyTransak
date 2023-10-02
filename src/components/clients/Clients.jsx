@@ -9,9 +9,12 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { VscEdit } from "react-icons/vsc";
 import { IoMdAdd, IoIosMore } from "react-icons/io";
 import { RiChatCheckFill, RiDeleteBinLine } from "react-icons/ri";
+import { useSetRecoilState } from "recoil";
+import { clientState, currentClient } from "../../atoms/client";
 
 export default function Clients() {
   const [Clients, setClients] = useState([]);
+  const setClientState = useSetRecoilState(clientState);
   const [showAddClientModal, setShowAddClientModal] = useState(false);
   const [showClientDetailsModal, setShowClientDetailsModal] = useState(false);
   const [seachedText, setSeachedText] = useState("");
@@ -44,6 +47,10 @@ export default function Clients() {
   const handleEditClient = (e) => {
     e.preventDefault();
     console.log("Mise a jour effectuee avec succes!");
+  };
+
+  const handleShowClient = (client) => {
+    setClientState((s) => ({ ...s, currentClient: client }));
   };
 
   const columns = [
@@ -115,6 +122,7 @@ export default function Clients() {
                   onClick={(e) => {
                     e.preventDefault();
                     setShowClientDetailsModal(true);
+                    handleShowClient(record);
                   }}
                 >
                   <IoIosMore />

@@ -5,5 +5,5 @@ import { currentClient } from "../../atoms/client";
 export default function ClientDetails() {
   const client = useRecoilValue(currentClient);
 
-  return <div>{client.}</div>;
+  return <div>{client}</div>;
 }

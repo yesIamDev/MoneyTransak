@@ -1,5 +1,5 @@
-import React from "react";
-import AddClientsForm from "./clients/AddClients-Form";
+import React, { Suspense } from "react";
+import ClientDetails from "./clients/Client-details";
 
 export default function ClientDetailsModal({ isVisible, onClose }) {
   if (!isVisible) return null;
@@ -16,7 +16,9 @@ export default function ClientDetailsModal({ isVisible, onClose }) {
     >
       <div className="w-[400px] flex flex-col">
         <div className="bg-white p-2 rounded">
-          <div>Bonjour david</div>
+          <Suspense fallback="chargement ...">
+            <ClientDetails />
+          </Suspense>
         </div>
       </div>
     </div>
